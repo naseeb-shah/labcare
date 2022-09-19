@@ -10,7 +10,7 @@ const app=express()
 app.use(bodyparser.json())
 app.use(cors())
 
-app.get('./',(req,res)=>{
+app.get('/',(req,res)=>{
     res.send("server is started")
 })
 app.use('/admin',admin)
