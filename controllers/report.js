@@ -5,7 +5,7 @@ const Report= express.Router()
 
 
 Report.post('/',async(req,res)=>{    
-const {name,mobile,age,address,reference,tests,time}=req.body
+const {name,mobile,age,address,reference,tests,time,techname,gender,date}=req.body
 if(true){
  await Re.create({
     name:name,
@@ -15,7 +15,11 @@ if(true){
     reference:reference,
     test:tests,
     time:time,
-    payment:{default:false}
+date:date,
+    gender:gender,
+    payment:false,
+    techname:techname,
+
  }).then(e=>{
     return res.send({
         "status":"Sucessful",

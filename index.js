@@ -3,6 +3,7 @@
  const cors=require("cors")
  const admin= require('./controllers/admin')
  const Report= require('./controllers/report')
+ const Feed= require('./controllers/req')
  const dataconnect= require('./model/index')
 console.log(dataconnect)
  
@@ -15,6 +16,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/admin',admin)
 app.use('/report',Report)
+app.use('/feed',Feed)
 
 
 

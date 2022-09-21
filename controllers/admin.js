@@ -9,7 +9,7 @@ admin.post('/',async(req,res)=>{
 
 
 
- const {name,email,password}=req.body
+ const {name,email,password,role}=req.body
   var user= await Ad.findOne({email:email})
 if(user){
   return  res.send({
@@ -21,6 +21,7 @@ if(user){
 Ad.create({
 name:name,
 email:email,
+role:role,
 password:bcrypt.hashSync(password,10)
 }).then(e=>{
     res.send({
@@ -42,7 +43,7 @@ password:bcrypt.hashSync(password,10)
 
 
 admin.post('/log',async(req,res)=>{
-    const {name,email,password}=req.body
+    const {name,email,password,role}=req.body
 
 
     var user= await Ad.findOne({email:email})
@@ -54,14 +55,18 @@ admin.post('/log',async(req,res)=>{
     }
 
 var matehd=bcrypt.compareSync(password,user.password)
+var roleis=false
+if(role==user.role)
+roleis=true
 
-if(matehd){
+if(matehd&&roleis){
      return   res.send({
-            "status":"Successfully ",
+            "status":"Successfully",
             "response": {
                 name:user.name,
                 email:user.email,
-                id:user._id
+                id:user._id,
+                role:user.role
             }
         })
 }else{

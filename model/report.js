@@ -8,11 +8,14 @@ var client=mongoose.Schema({
     mobile:Number,
     test:Object,
     add:String,
-    time:String,
+    date:String,
     reference:String,
-   
+    gender:String,
+    address:String,
+    techname:String,
+    time:String,
     
-})
+},{ timestamps: true })
 
 var report=mongoose.model('report',client)
 
