@@ -5,8 +5,9 @@ const Report= express.Router()
 
 
 Report.post('/',async(req,res)=>{    
-const {name,mobile,age,address,reference,tests,time,techname,gender,date}=req.body
+const {name,mobile,age,address,reference,tests,time,techname,gender,date,payment}=req.body
 if(true){
+    
  await Re.create({
     name:name,
     mobile:mobile,  
@@ -15,9 +16,9 @@ if(true){
     reference:reference,
     test:tests,
     time:time,
-date:date,
+date: +new Date(date),
     gender:gender,
-    payment:false,
+    payment:payment,
     techname:techname,
 
  }).then(e=>{
@@ -41,6 +42,26 @@ date:date,
 
 
                        })
+
+Report.post('/pay',(req,res)=>{
+    Re.findByIdAndUpdate(req.body.id,{ payment:{s:true,am:req.body.am}})
+    .then(e=>{
+        return res.send({
+            "status":"sucesfully",
+            "response":e
+          })
+            }).catch(e=>{
+        
+                return res.send({
+                    "response":'Something Went wrong'
+                    
+                })
+            })
+        
+    })
+// })
+
+
 Report.get('/m/:mobile',async(req,res)=>{
   await  Re.find({mobile:req.params.mobile}).then((e)=>{
   return res.send({
@@ -73,6 +94,32 @@ Report.get('/id/:id',async(req,res)=>{
     })
 
 })
+Report.post('/time',async(req,res)=>{
+    var  {start,end}=req.body
+console.log(req.body)
+   start= +(new Date(start))
+   end= +(new Date(end))
+   console.log(start,end)
+    Re.find({"date":{$gte:start,$lte:end}}).then((e)=>{
+        
+  return res.send({
+    "status":"sucesfully",
+    "reports":e,
+    "len":e.length
+  })
+    }).catch(e=>{
+
+        return    res.send({
+            "status":'error',
+            "response":"No reports found"
+        })
+    })
+
+})
+
+
+
+
 Report.get('/allreport',async(req,res)=>{
     Re.find({}).then((e)=>{
   return res.send({

@@ -6,7 +6,7 @@ var client=mongoose.Schema({
     name:String,
     age:Number,
     mobile:Number,
-    test:Object,
+    test:{type:Object, require:true},
     add:String,
     date:String,
     reference:String,
@@ -14,8 +14,9 @@ var client=mongoose.Schema({
     address:String,
     techname:String,
     time:String,
+    payment:{s:Boolean,am:Number}
     
-},{ timestamps: true })
+})
 
 var report=mongoose.model('report',client)
 

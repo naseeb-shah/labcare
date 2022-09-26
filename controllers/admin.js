@@ -45,8 +45,9 @@ password:bcrypt.hashSync(password,10)
 admin.post('/log',async(req,res)=>{
     const {name,email,password,role}=req.body
 
-
+console.log(req.body)
     var user= await Ad.findOne({email:email})
+
     if(!user){
       return  res.send({
             "status":"error",

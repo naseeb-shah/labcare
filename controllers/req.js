@@ -85,6 +85,22 @@ Req.patch('/updated/:id',(req,res)=>{
    })
 })
 
+Req.delete('/updated/:id',(req,res)=>{
+    const {id}=req.params
+    console.log(id)
+    Rmodel.findOneAndDelete({"_id":id},{'done':true})
+    .then(e=>{
+       return res.send({
+           "status":"sucesfully",
+           "reports":e
+         })
+   }).catch(e=>{
 
+       return    res.send({
+           "status":'error',
+           "response":e
+       })
+   })
+})
 
 module.exports=Req
